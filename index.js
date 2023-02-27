@@ -7,6 +7,7 @@ const {
   employeeQuestions,
 } = require("./questions");
 //const fs = require("fs");
+
 const inquirer = require("inquirer");
 // Import and require mysql2
 const mysql = require("mysql2");
@@ -26,10 +27,6 @@ const db = mysql.createConnection(
 db.connect((err) => {
   if (err) throw err;
 });
-// Query database
-//   db.query('SELECT * FROM employee', function (err, results) {
-//     console.log(results);
-//   });
 
 function init() {
   console.log("This is the employee tracking application");
@@ -55,77 +52,73 @@ function generate(action) {
   } else if (action === "Add Department") {
     addDepartment();
   } else {
-    console.log("something went wrong");
-    //buildCMS();
+    console.log("Restart the application if you want to do more. Thank you!");
   }
 }
-function viewEmployees() {}
+
 function viewAllDepts() {
   db.query("SELECT * FROM department", function (err, results) {
     console.table(results);
     init();
   });
 }
-function viewAllRoles() {}
+function viewAllRoles() {
+  db.query(
+    "SELECT role.title, role.salary, department.name FROM role LEFT JOIN department ON department.id = role.department_id",
+    function (err, results) {
+      console.table(results);
+      init();
+    }
+  );
+}
+function viewEmployees() {
+  db.query("SELECT * FROM employee", function (err, results) {
+    console.table(results);
+    init();
+  });
+}
 function addEmployee() {
   inquirer.prompt(employeeQuestions).then((answer) => {
     console.log(answer);
+    db.query(`INSERT INTO employee SET ?`, answer, function (err, results) {
+      console.table(results);
+      init();
+    });
   });
-  // .then(({ title, name, id, email, misc }) => {
-  //   const manager = new Manager(title, name, id, email, misc);
-  //   team.push(manager);
-  //   init();
-  // });
-  console.log({ first_name, last_name, role });
 }
 
 function addDepartment() {
   inquirer.prompt(departmentQuestions).then((answer) => {
-    console.log(answer);
     db.query(`INSERT INTO department SET ?`, answer, function (err, results) {
       console.table(results);
       init();
     });
   });
-  // .then(({ title, name, id, email, misc }) => {
-  //   const manager = new Manager(title, name, id, email, misc);
-  //   team.push(manager);
-  //   init();
-  // });
 }
 function addRole() {
-  //lets get all the department info ..... THEN.....
-
-  inquirer.prompt(roleQuestions);
-  // .then(({ title, name, id, email, misc }) => {
-  //   const manager = new Manager(title, name, id, email, misc);
-  //   team.push(manager);
-  //   init();
-  // });
-  console.log({ first_name, last_name, role });
+  inquirer.prompt(roleQuestions).then((answer) => {
+    //you were thinking of push to the array here, but would have to add a lot of code
+    db.query(`INSERT INTO role SET ?`, answer, function (err, results) {
+      console.table(results);
+      init();
+    });
+  });
 }
 
 function updateRole() {
+  inquirer.prompt(employeeQuestions).then((answer) => {
+    db.query(
+      `UPDATE employee SET role_id = "${answer.role_id}" WHERE first_name = "${answer.first_name}" AND last_name= "${answer.last_name}`,
+      answer,
+      function (err, results) {
+        console.table(results);
+        init();
+      }
+    );
+  });
   // UPDATE employee
   // SET name = {$first_name, last_name'}
   // WHERE id = 2;
 }
 
-//init();
-
-//const choices = ["bob", "sally", "steve"];
-const choices = [
-  { name: "bob", value: 1 },
-  { name: "sally", value: 2 },
-  { name: "steve", value: 3 },
-];
-inquirer
-  .prompt({
-    type: "list",
-    name: "fun",
-    message: "Whos your friend?",
-    choices: choices,
-  })
-  .then((answer) => {
-    console.log(answer);
-  });
+init();

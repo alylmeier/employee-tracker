@@ -1,3 +1,32 @@
+const managers = [
+  { name: "John Doe", value: 1 },
+  { name: "Mike Chan", value: 2 },
+  { name: "Ashley Rodriguez", value: 3 },
+  { name: "Kevin Tupnik", value: 4 },
+  { name: "Kunal Singh", value: 5 },
+  { name: "Malia Brown", value: 6 },
+  { name: "None", value: null },
+];
+
+const departments = [
+  { name: "Engineering", value: 1 },
+  { name: "Finance", value: 2 },
+  { name: "Legal", value: 3 },
+  { name: "Sales", value: 4 },
+  { name: "Service", value: 5 },
+];
+
+const roles = [
+  { name: "Sales Lead", value: 1 },
+  { name: "Salesperson", value: 2 },
+  { name: "Lead Engineer", value: 3 },
+  { name: "Software Enginerr", value: 4 },
+  { name: "Account Manager", value: 5 },
+  { name: "Accountant", value: 6 },
+  { name: "Legal Team Lead", value: 7 },
+  { name: "Lawyer", value: 8 },
+  { name: "Customer Service", value: 9 },
+];
 const initQuestions = [
   {
     type: "list",
@@ -38,8 +67,8 @@ const roleQuestions = [
   {
     type: "list",
     message: "Which department does the role belong?",
-    choices: ["Engineering", "Finance", "Legal", "Sales", "Service"],
-    name: "department",
+    choices: departments,
+    name: "department_id",
   },
 ];
 const employeeQuestions = [
@@ -56,32 +85,14 @@ const employeeQuestions = [
   {
     type: "list",
     message: "What is their role?",
-    choices: [
-      "Sales Lead",
-      "Salesperson",
-      "Lead Engineer",
-      "Software Enginerr",
-      "Account Manager",
-      "Accountant",
-      "Legal Team Lead",
-      "Lawyer",
-      "Customer Service",
-    ],
-    name: "role",
+    choices: roles,
+    name: "role_id",
   },
   {
     type: "list",
     message: "Who is their manager?",
-    choices: [
-      "John Doe",
-      "Mike Chan",
-      "Ashley Rodriguez",
-      "Kevin Tupnik",
-      "Kunal Singh",
-      "Malia Brown",
-      "None",
-    ],
-    name: "manager",
+    choices: managers,
+    name: "manager_id",
   },
 ];
 

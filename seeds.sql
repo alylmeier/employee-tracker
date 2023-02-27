@@ -5,13 +5,18 @@ VALUES ("Engineer"),
        ("Sales"),
        ("service");
 
--- INSERTS INTO role (id, title, salary, department_id)
---  VALUES(1, "Sales Lead", {$salary}, 
---       "Salesperson",
---       "Lead Engineer",
---       "Software Enginerr",
---       "Account Manager",
---       "Accountant",
---       "Legal Team Lead",
---       "Lawyer",
---       "Customer Service"
+INSERT INTO role (title, salary, department_id)
+VALUES ("Sales Lead", 120000, 4), 
+       ("Salesperson", 80000, 4),
+       ("Lead Engineer", 120000, 1), 
+       ("Software Enginerr", 100000, 1), 
+        ("Account Manager", 100000, 4), 
+        ("Accountant", 120000, 2), 
+        ("Legal Team Lead", 150000, 3),
+        ("Lawyer", 120000, 3),
+        ("Customer Service", 50000, 5);
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ("Aly", "Meier", 1, null),
+        ("Tom", "O'Connor", 2, 1),
+        ("Cooper", "Dog", 9, 1);
