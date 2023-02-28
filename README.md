@@ -13,7 +13,7 @@ This is an app to create an employee content managment system
 This project is run with node & mySql
 
 ## Usage
-This project is intended to be used by companies to tracker their employee database
+This project is intended to be used by companies to track their employee database
 
 
 ## Example Video
