@@ -5,6 +5,7 @@ const {
   departmentQuestions,
   roleQuestions,
   employeeQuestions,
+  updateQuestions,
 } = require("./questions");
 //const fs = require("fs");
 
@@ -79,9 +80,7 @@ function viewEmployees() {
 }
 function addEmployee() {
   inquirer.prompt(employeeQuestions).then((answer) => {
-    console.log(answer);
     db.query(`INSERT INTO employee SET ?`, answer, function (err, results) {
-      console.table(results);
       init();
     });
   });
@@ -90,7 +89,6 @@ function addEmployee() {
 function addDepartment() {
   inquirer.prompt(departmentQuestions).then((answer) => {
     db.query(`INSERT INTO department SET ?`, answer, function (err, results) {
-      console.table(results);
       init();
     });
   });
@@ -99,30 +97,19 @@ function addRole() {
   inquirer.prompt(roleQuestions).then((answer) => {
     //you were thinking of push to the array here, but would have to add a lot of code
     db.query(`INSERT INTO role SET ?`, answer, function (err, results) {
-      console.table(results);
       init();
     });
   });
 }
 
 function updateRole() {
-  inquirer.prompt(employeeQuestions).then((answer) => {
-    db.query(
-      `UPDATE employee SET role_id =`,
-      answer.role_id,
-      `WHERE first_name =`,
-      answer.first_name,
-      `AND last_name=`,
-      answer.last_name,
-      function (err, results) {
-        console.table(results);
-        init();
-      }
-    );
+  inquirer.prompt(updateQuestions).then((answer) => {
+    const sql = `UPDATE employee SET role_id = ? WHERE first_name = ? AND last_name = ? `;
+    const params = [answer.role_id, answer.first_name, answer.last_name];
+    db.query(sql, params, (err, result) => {
+      init();
+    });
   });
-  // UPDATE employee
-  // SET name = {$first_name, last_name'}
-  // WHERE id = 2;
 }
 
 init();

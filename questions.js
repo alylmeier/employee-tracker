@@ -20,7 +20,7 @@ const roles = [
   { name: "Sales Lead", value: 1 },
   { name: "Salesperson", value: 2 },
   { name: "Lead Engineer", value: 3 },
-  { name: "Software Enginerr", value: 4 },
+  { name: "Software Engineer", value: 4 },
   { name: "Account Manager", value: 5 },
   { name: "Accountant", value: 6 },
   { name: "Legal Team Lead", value: 7 },
@@ -32,13 +32,13 @@ const initQuestions = [
     type: "list",
     message: "What would you like to do?",
     choices: [
-      "View All Employees",
       "Add Employee",
       "Update Employee Role",
-      "View All Roles",
+      "View All Employees",
       "Add Role",
-      "View All Departments",
+      "View All Roles",
       "Add Department",
+      "View All Departments",
       "Quit",
     ],
     name: "action",
@@ -95,10 +95,29 @@ const employeeQuestions = [
     name: "manager_id",
   },
 ];
+const updateQuestions = [
+  {
+    type: "input",
+    message: "What is the employee's first name?",
+    name: "first_name",
+  },
+  {
+    type: "input",
+    message: "What is the employee's last name?",
+    name: "last_name",
+  },
+  {
+    type: "list",
+    message: "What is their new role?",
+    choices: roles,
+    name: "role_id",
+  },
+];
 
 module.exports = {
   initQuestions,
   departmentQuestions,
   roleQuestions,
   employeeQuestions,
+  updateQuestions,
 };
