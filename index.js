@@ -108,8 +108,12 @@ function addRole() {
 function updateRole() {
   inquirer.prompt(employeeQuestions).then((answer) => {
     db.query(
-      `UPDATE employee SET role_id = "${answer.role_id}" WHERE first_name = "${answer.first_name}" AND last_name= "${answer.last_name}`,
-      answer,
+      `UPDATE employee SET role_id =`,
+      answer.role_id,
+      `WHERE first_name =`,
+      answer.first_name,
+      `AND last_name=`,
+      answer.last_name,
       function (err, results) {
         console.table(results);
         init();
